@@ -1,5 +1,8 @@
 {
-  "gamerule.always-drop-loot:alwaysDropXp": "Always drop XP",
-  "gamerule.always-drop-loot:passiveXpModifier": "Passive XP modifier",
-  "gamerule.always-drop-loot:lootDropMode": "Loot drop mode"
+	"gamerule.always-drop-loot:alwaysDropXp": "Always drop XP",
+	"gamerule.always-drop-loot:passiveXpModifier": "Passive XP modifier",
+	"gamerule.always-drop-loot:lootDropMode": "Loot drop mode",
+	"gamerule.always-drop-loot.always_drop_xp": "Always drop XP",
+	"gamerule.always-drop-loot.passive_xp_modifier": "Passive XP modifier",
+	"gamerule.always-drop-loot.loot_drop_mode": "Loot drop mode"
 }
