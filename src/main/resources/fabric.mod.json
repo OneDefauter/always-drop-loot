@@ -24,9 +24,9 @@
 		"always-drop-loot.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.15.11",
-		"minecraft": ">=1.21 <1.22",
-		"java": ">=21",
+		"fabricloader": ">=0.18.4",
+		"minecraft": ">=26.1 <26.2",
+		"java": ">=25",
 		"fabric-api": "*"
 	}
 }

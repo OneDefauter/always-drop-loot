@@ -1,6 +1,6 @@
 # Always Drop Loot
 
-An unofficial Fabric update of **Always Drop Loot** for the full Minecraft `1.21.x` line, including `1.21` through `1.21.11`.
+An unofficial Fabric update of **Always Drop Loot** for Minecraft `26.1`.
 
 In vanilla Minecraft, many mobs only drop experience and some loot-table results when they are considered to have been killed by a player. That means falls, lava, suffocation, campfires, drowning, entity cramming, and other environmental deaths often reduce or remove rewards.
 
@@ -18,10 +18,10 @@ In practice, this means farms based on fall damage, lava blades, environmental t
 
 ## Requirements
 
-- Minecraft Java Edition `1.21` to `1.21.11`
+- Minecraft Java Edition `26.1`
 - Fabric Loader
 - Fabric API
-- Java 21
+- Java 25
 
 ## Installation
 
@@ -119,9 +119,13 @@ Keep vanilla loot logic, but still allow some XP from passive farms:
 
 ## Compatibility
 
-This fork was updated specifically for the Minecraft `1.21.x` series and tested against the compatibility range from `1.21` through `1.21.11`.
+This fork was updated specifically for Minecraft `26.1`.
 
-Because Mojang and Fabric changed internal APIs several times within that version line, this fork includes compatibility work so the same mod jar can run across the full range.
+This port includes the required `26.1` build migration:
+
+- unobfuscated Fabric Loom (`net.fabricmc.fabric-loom`),
+- Java 25,
+- and the current Fabric Loader / Fabric API line for `26.1`.
 
 ## Credits
 
@@ -130,7 +134,7 @@ Full credit for the original mod concept, implementation, and open-source releas
 - Original author profile: <https://modrinth.com/user/sargunv>
 - Original mod page: <https://modrinth.com/mod/always-drop-loot>
 
-This updated fork exists to keep the mod usable on newer Fabric `1.21.x` versions while preserving the original idea and behavior as closely as possible.
+This updated fork exists to keep the mod usable on newer Fabric `26.1` versions while preserving the original idea and behavior as closely as possible.
 
 ## License
 

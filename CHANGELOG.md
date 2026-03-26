@@ -4,6 +4,10 @@
 
 ### Changes
 
+- Updated to Minecraft 26.1
+- Switched the Fabric build to the unobfuscated 26.1 setup
+- Updated the project to Java 25
+
 ## 5.1.0
 
 ### Changes
