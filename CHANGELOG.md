@@ -4,9 +4,10 @@
 
 ### Changes
 
-- Updated to Minecraft 26.1
-- Switched the Fabric build to the unobfuscated 26.1 setup
-- Updated the project to Java 25
+- Updated to Minecraft 26.2
+- Updated to Fabric Loader 0.19.3 and Fabric API 0.154.2+26.2
+- Updated to Fabric Loom 1.17.11 and Gradle 9.5.1
+- Updated the build and mixin compatibility level to Java 25
 
 ## 5.1.0
 

@@ -1,6 +1,6 @@
 # Always Drop Loot
 
-An unofficial Fabric update of **Always Drop Loot** for Minecraft `26.1`.
+An unofficial Fabric update of **Always Drop Loot** for Minecraft `26.2`.
 
 In vanilla Minecraft, many mobs only drop experience and some loot-table results when they are considered to have been killed by a player. That means falls, lava, suffocation, campfires, drowning, entity cramming, and other environmental deaths often reduce or remove rewards.
 
@@ -18,7 +18,7 @@ In practice, this means farms based on fall damage, lava blades, environmental t
 
 ## Requirements
 
-- Minecraft Java Edition `26.1`
+- Minecraft Java Edition `26.2`
 - Fabric Loader
 - Fabric API
 - Java 25
@@ -119,13 +119,16 @@ Keep vanilla loot logic, but still allow some XP from passive farms:
 
 ## Compatibility
 
-This fork was updated specifically for Minecraft `26.1`.
+This fork was updated specifically for Minecraft `26.2`.
 
-This port includes the required `26.1` build migration:
+This port includes the required `26.2` build migration:
 
 - unobfuscated Fabric Loom (`net.fabricmc.fabric-loom`),
 - Java 25,
-- and the current Fabric Loader / Fabric API line for `26.1`.
+- Fabric Loader `0.19.3`,
+- Fabric API `0.154.2+26.2`,
+- Loom `1.17.11`,
+- and Gradle `9.5.1`.
 
 ## Credits
 
@@ -134,7 +137,7 @@ Full credit for the original mod concept, implementation, and open-source releas
 - Original author profile: <https://modrinth.com/user/sargunv>
 - Original mod page: <https://modrinth.com/mod/always-drop-loot>
 
-This updated fork exists to keep the mod usable on newer Fabric `26.1` versions while preserving the original idea and behavior as closely as possible.
+This updated fork exists to keep the mod usable on newer Fabric `26.2` versions while preserving the original idea and behavior as closely as possible.
 
 ## License
 
