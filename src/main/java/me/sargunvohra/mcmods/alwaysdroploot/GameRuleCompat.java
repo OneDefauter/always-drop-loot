@@ -8,7 +8,6 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.gamerules.GameRule;
 
 public final class GameRuleCompat {
 	private static final String MOD_ID = "always-drop-loot";
@@ -59,13 +58,6 @@ public final class GameRuleCompat {
 	}
 
 	private static Object getRuleValue(ServerLevel level, Object rule, Class<?> expectedType) {
-		if (rule instanceof GameRule<?> gameRule) {
-			Object rawValue = level.getGameRules().get(castGameRule(gameRule));
-			if (matchesExpectedType(rawValue.getClass(), expectedType)) {
-				return rawValue;
-			}
-		}
-
 		Object gameRules = getGameRules(level);
 		Object rawValue = invoke(findRuleAccessor(gameRules.getClass(), rule.getClass(), expectedType), gameRules, rule);
 
@@ -452,10 +444,5 @@ public final class GameRuleCompat {
 		} catch (ClassNotFoundException ignored) {
 			return false;
 		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private static GameRule<Object> castGameRule(GameRule<?> gameRule) {
-		return (GameRule<Object>) gameRule;
 	}
 }

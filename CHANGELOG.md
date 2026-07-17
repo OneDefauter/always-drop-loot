@@ -4,9 +4,10 @@
 
 ### Changes
 
-- Updated to Minecraft 26.1
-- Switched the Fabric build to the unobfuscated 26.1 setup
-- Updated the project to Java 25
+- Added support for Minecraft 1.20 through 1.20.6
+- Updated Fabric Loader and Fabric API for the 1.20.6 build target
+- Added the 1.20-compatible XP drop mixin
+- Kept the mod bytecode compatible with Java 17
 
 ## 5.1.0
 

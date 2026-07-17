@@ -6,7 +6,6 @@ import me.sargunvohra.mcmods.alwaysdroploot.AlwaysDropLoot;
 import me.sargunvohra.mcmods.alwaysdroploot.GameRuleCompat;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
@@ -31,11 +30,14 @@ public abstract class LivingEntityMixin {
 	protected abstract boolean isAlwaysExperienceDropper();
 
 	@Shadow
-	protected abstract int getExperienceReward(ServerLevel serverLevel, Entity entity);
+	protected abstract int getExperienceReward();
 
 	@Inject(method = "dropAllDeathLoot", at = @At("TAIL"))
-	private void alwaysDropXpFallback(ServerLevel serverLevel, DamageSource damageSource, CallbackInfo ci) {
+	private void alwaysDropXpFallback(DamageSource damageSource, CallbackInfo ci) {
 		LivingEntity entity = (LivingEntity) (Object) this;
+		if (!(entity.level() instanceof ServerLevel serverLevel)) {
+			return;
+		}
 
 		if (this.isAlwaysExperienceDropper() || getPlayerHitTimer(entity) > 0) {
 			return;
@@ -45,7 +47,7 @@ public abstract class LivingEntityMixin {
 			return;
 		}
 
-		int originalXpAmount = this.getExperienceReward(serverLevel, damageSource.getEntity());
+		int originalXpAmount = this.getExperienceReward();
 		double modifier = GameRuleCompat.getDoubleRule(serverLevel, AlwaysDropLoot.PASSIVE_XP_MODIFIER);
 		int adjustedXpAmount = (int) Math.round(originalXpAmount * modifier);
 
