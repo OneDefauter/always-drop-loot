@@ -4,6 +4,9 @@
 
 ### Changes
 
+- Added normal equipment drop rolls for non-player kills according to `loot_drop_mode`
+- Added Brazilian Portuguese gamerule translations
+- Updated the mod author and project contact links
 - Added support for Minecraft 1.20 through 1.20.6
 - Updated Fabric Loader and Fabric API for the 1.20.6 build target
 - Added the 1.20-compatible XP drop mixin
