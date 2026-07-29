@@ -4,6 +4,9 @@
 
 ### Changes
 
+- Added normal equipment drop rolls for non-player kills according to `loot_drop_mode`
+- Added Brazilian Portuguese gamerule translations
+- Updated the mod author and project contact links
 - Updated to Minecraft 26.2
 - Updated to Fabric Loader 0.19.3 and Fabric API 0.154.2+26.2
 - Updated to Fabric Loom 1.17.11 and Gradle 9.5.1
