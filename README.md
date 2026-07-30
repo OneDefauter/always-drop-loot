@@ -11,6 +11,7 @@ This mod changes that behavior so passive farms and automation setups can still 
 - Makes mobs able to drop XP even when they die without a direct player kill.
 - Lets you control how much XP non-player kills should give.
 - Lets you control how the `killed_by_player` loot condition behaves.
+- Lets naturally equipped armor and weapons roll their normal drop chance on non-player kills.
 - Works in singleplayer and on Fabric servers.
 - Stores configuration per world through gamerules instead of a config screen.
 
@@ -74,7 +75,7 @@ This value only affects deaths that were not credited to a player. It does not c
 
 ### `always-drop-loot:loot_drop_mode`
 
-Controls how loot tables interpret the `killed_by_player` condition.
+Controls how loot tables and equipped-item drops interpret whether the mob was killed by a player.
 
 Default:
 
@@ -89,7 +90,9 @@ Available values:
 - `VANILLA`: use normal vanilla behavior.
 - `VANILLA_INVERSE`: invert vanilla behavior.
 
-This rule is what affects loot-table based drops that depend on `killed_by_player`.
+This rule affects loot-table drops that depend on `killed_by_player` and the vanilla drop chance for armor and weapons equipped by mobs.
+
+On affected `1.21.x` versions, equipped slots initialized with a `0.0` drop chance are restored to the normal `8.5%` equipment roll when this rule treats the death as a player kill. Existing non-zero and guaranteed drop chances are preserved.
 
 ## Example setups
 
