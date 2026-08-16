@@ -1,0 +1,12 @@
+{
+  "pack": {
+    "description": "Always Drop Loot resources",
+    "pack_format": 34,
+    "supported_formats": {
+      "min_inclusive": 34,
+      "max_inclusive": 94
+    },
+    "min_format": [34, 0],
+    "max_format": [94, 1]
+  }
+}
