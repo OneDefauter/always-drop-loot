@@ -4,6 +4,7 @@
 
 ### Changes
 
+- Changed generated artifact names to the `ADL-<version>-Fabric-<Minecraft series>.jar` pattern
 - Fixed a mob-death crash on Minecraft 1.21.9 and newer caused by an incompatible world-accessor descriptor
 - Restored the vanilla 8.5% equipment roll when affected 1.21.x versions initialize an equipped slot with a zero drop chance
 - Added normal equipment drop rolls for non-player kills according to `loot_drop_mode`
