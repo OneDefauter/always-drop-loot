@@ -1,0 +1,94 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'net.minecraftforge.gradle' version '[7.0.17,8)'
+}
+
+version = mod_version
+group = mod_group_id
+
+def distributionVersion = mod_version.split('\\+', 2)[0]
+def distributionMinecraftVersion = (mod_version =~ /\+mc([^-]+)/)[0][1]
+def distributionName = "ADL-${distributionVersion}-Forge-${distributionMinecraftVersion}"
+
+base {
+    archivesName = distributionName
+}
+
+tasks.withType(Jar).configureEach {
+    archiveVersion = ''
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+
+minecraft {
+    mappings channel: 'official', version: minecraft_version
+
+    runs {
+        configureEach {
+            workingDir = layout.projectDirectory.dir('run')
+            args "--mixin.config=always-drop-loot.mixins.json"
+            systemProperty 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        register('client')
+        register('server') {
+            args '--nogui'
+        }
+    }
+}
+
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    mavenCentral()
+}
+
+configurations.configureEach {
+    // Minecraft 1.21 requests 6.0-alpha-3, whose automatic module name is
+    // incompatible with the jopt.simple module required by Forge 51.
+    resolutionStrategy.force 'net.sf.jopt-simple:jopt-simple:5.0.4'
+}
+
+dependencies {
+    implementation minecraft.dependency("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+}
+
+tasks.named('processResources', ProcessResources) {
+    def replaceProperties = [
+        loader_version_range: loader_version_range,
+        forge_version_range: forge_version_range,
+        minecraft_version_range: minecraft_version_range,
+        mod_id: mod_id,
+        mod_name: mod_name,
+        mod_license: mod_license,
+        mod_version: mod_version,
+        mod_authors: mod_authors,
+        mod_description: mod_description
+    ]
+    inputs.properties replaceProperties
+    filesMatching('META-INF/mods.toml') {
+        expand replaceProperties
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+    options.incremental = false
+    outputs.upToDateWhen { false }
+}
+
+tasks.named('jar', Jar) {
+    manifest {
+        attributes['MixinConfigs'] = 'always-drop-loot.mixins.json'
+    }
+    from('LICENSE') {
+        rename { "${it}_always-drop-loot" }
+    }
+}
