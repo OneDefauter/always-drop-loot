@@ -8,6 +8,7 @@
 - Restored the vanilla 8.5% equipment roll when affected 1.21.x versions initialize an equipped slot with a zero drop chance
 - Added normal equipment drop rolls for non-player kills according to `loot_drop_mode`
 - Added Brazilian Portuguese gamerule translations
+- Added the namespaced snake-case gamerule translation keys used by the gamerule screen
 - Updated the mod author and project contact links
 
 ## 5.1.0
