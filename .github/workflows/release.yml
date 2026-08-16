@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: release-1.20
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-24.04
@@ -40,9 +44,14 @@ jobs:
         run: |
           MOD_VERSION="$(grep '^mod_version=' gradle.properties | cut -d'=' -f2)"
           RELEASE_VERSION="${MOD_VERSION%%+*}"
-          RELEASE_TAG="v${MOD_VERSION/+/-}"
+          RELEASE_MOD_VERSION="${MOD_VERSION%-forge}"
+          RELEASE_MOD_VERSION="${RELEASE_MOD_VERSION%-neoforge}"
+          MINECRAFT_SERIES="${RELEASE_MOD_VERSION##*+mc}"
+          RELEASE_TAG="v${RELEASE_MOD_VERSION/+/-}"
           echo "MOD_VERSION=${MOD_VERSION}" >> "$GITHUB_ENV"
           echo "RELEASE_VERSION=${RELEASE_VERSION}" >> "$GITHUB_ENV"
+          echo "RELEASE_MOD_VERSION=${RELEASE_MOD_VERSION}" >> "$GITHUB_ENV"
+          echo "MINECRAFT_SERIES=${MINECRAFT_SERIES}" >> "$GITHUB_ENV"
           echo "RELEASE_TAG=${RELEASE_TAG}" >> "$GITHUB_ENV"
 
       - name: prepare release notes
@@ -59,12 +68,21 @@ jobs:
           EOF
           fi
 
+      - name: prepare release assets
+        shell: bash
+        run: |
+          mkdir -p release-assets
+          find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -exec cp {} release-assets/ \;
+          test -n "$(find release-assets -maxdepth 1 -type f -name '*.jar' -print -quit)"
+
       - name: publish release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.RELEASE_TAG }}
           target_commitish: ${{ github.sha }}
-          name: Always Drop Loot Fabric ${{ env.MOD_VERSION }}
+          name: ADL - ${{ env.MINECRAFT_SERIES }}
           body_path: release-notes.md
+          fail_on_unmatched_files: true
+          overwrite_files: true
           files: |
-            build/libs/*.jar
+            release-assets/*.jar
