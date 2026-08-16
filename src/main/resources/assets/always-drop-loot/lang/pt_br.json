@@ -2,6 +2,9 @@
 	"gamerule.always-drop-loot:alwaysDropXp": "Sempre dropar XP",
 	"gamerule.always-drop-loot:passiveXpModifier": "Modificador de XP passivo",
 	"gamerule.always-drop-loot:lootDropMode": "Modo de drop de loot",
+	"gamerule.always-drop-loot:always_drop_xp": "Sempre dropar XP",
+	"gamerule.always-drop-loot:passive_xp_modifier": "Modificador de XP passivo",
+	"gamerule.always-drop-loot:loot_drop_mode": "Modo de drop de loot",
 	"gamerule.always-drop-loot.always_drop_xp": "Sempre dropar XP",
 	"gamerule.always-drop-loot.passive_xp_modifier": "Modificador de XP passivo",
 	"gamerule.always-drop-loot.loot_drop_mode": "Modo de drop de loot"
