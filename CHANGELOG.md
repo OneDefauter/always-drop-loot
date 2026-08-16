@@ -6,6 +6,7 @@
 
 - Added normal equipment drop rolls for non-player kills according to `loot_drop_mode`
 - Added Brazilian Portuguese gamerule translations
+- Added the namespaced snake-case gamerule translation keys used by the gamerule screen
 - Updated the mod author and project contact links
 - Updated to Minecraft 26.1
 - Switched the Fabric build to the unobfuscated 26.1 setup
