@@ -6,8 +6,16 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
+def distributionVersion = project.mod_version.split('\\+', 2)[0]
+def distributionMinecraftVersion = (project.mod_version =~ /\+mc([^-]+)/)[0][1]
+def distributionName = "ADL-${distributionVersion}-Fabric-${distributionMinecraftVersion}"
+
 base {
-	archivesName = project.archives_base_name
+	archivesName = distributionName
+}
+
+tasks.withType(org.gradle.api.tasks.bundling.AbstractArchiveTask).configureEach {
+	archiveVersion = ''
 }
 
 repositories {
