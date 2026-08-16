@@ -1,0 +1,88 @@
+name: release
+
+on:
+  push:
+    branches:
+      - 'NeoForge-1.20'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-1.20
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: validate gradle wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: setup jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: setup gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: build
+        run: ./gradlew build
+
+      - name: derive release version
+        shell: bash
+        run: |
+          MOD_VERSION="$(grep '^mod_version=' gradle.properties | cut -d'=' -f2)"
+          RELEASE_VERSION="${MOD_VERSION%%+*}"
+          RELEASE_MOD_VERSION="${MOD_VERSION%-forge}"
+          RELEASE_MOD_VERSION="${RELEASE_MOD_VERSION%-neoforge}"
+          MINECRAFT_SERIES="${RELEASE_MOD_VERSION##*+mc}"
+          RELEASE_TAG="v${RELEASE_MOD_VERSION/+/-}"
+          echo "MOD_VERSION=${MOD_VERSION}" >> "$GITHUB_ENV"
+          echo "RELEASE_VERSION=${RELEASE_VERSION}" >> "$GITHUB_ENV"
+          echo "RELEASE_MOD_VERSION=${RELEASE_MOD_VERSION}" >> "$GITHUB_ENV"
+          echo "MINECRAFT_SERIES=${MINECRAFT_SERIES}" >> "$GITHUB_ENV"
+          echo "RELEASE_TAG=${RELEASE_TAG}" >> "$GITHUB_ENV"
+
+      - name: prepare release notes
+        shell: bash
+        run: |
+          NOTES_FILE=".github/release-notes/${RELEASE_TAG}.md"
+          if [ -f "$NOTES_FILE" ]; then
+            cp "$NOTES_FILE" release-notes.md
+          else
+            cat > release-notes.md <<EOF
+          ## Changelog
+
+          - Automated release for ${GITHUB_REF_NAME}.
+          EOF
+          fi
+
+      - name: prepare release assets
+        shell: bash
+        run: |
+          mkdir -p release-assets
+          find build/libs -maxdepth 1 -type f -name '*.jar' ! -name '*-sources.jar' -exec cp {} release-assets/ \;
+          test -n "$(find release-assets -maxdepth 1 -type f -name '*.jar' -print -quit)"
+
+      - name: publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          target_commitish: ${{ github.sha }}
+          name: ADL - ${{ env.MINECRAFT_SERIES }}
+          body_path: release-notes.md
+          fail_on_unmatched_files: true
+          overwrite_files: true
+          files: |
+            release-assets/*.jar

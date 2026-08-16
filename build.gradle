@@ -1,0 +1,100 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version '2.0.144'
+    id 'idea'
+}
+
+version = mod_version
+group = mod_group_id
+
+def distributionVersion = mod_version.split('\\+', 2)[0]
+def distributionMinecraftVersion = (mod_version =~ /\+mc([^-]+)/)[0][1]
+def distributionName = "ADL-${distributionVersion}-NeoForge-${distributionMinecraftVersion}"
+
+base {
+    archivesName = distributionName
+}
+
+tasks.withType(Jar).configureEach {
+    archiveVersion = ''
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    withSourcesJar()
+}
+
+sourceSets {
+    legacyCompile {
+        java.srcDir 'src/legacyCompile/java'
+    }
+}
+
+tasks.named('compileJava', JavaCompile) {
+    dependsOn tasks.named('compileLegacyCompileJava')
+    classpath += sourceSets.legacyCompile.output
+}
+
+configurations.configureEach {
+    attributes.attribute(org.gradle.api.attributes.java.TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE, 21)
+}
+
+neoForge {
+    version = neo_version
+
+    runs {
+        client { client() }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+        configureEach {
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+var generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
+    var replaceProperties = [
+        minecraft_version_range: minecraft_version_range,
+		legacy_minecraft_version_range: legacy_minecraft_version_range,
+        neo_version_range: neo_version_range,
+        loader_version_range: loader_version_range,
+        mod_id: mod_id,
+        mod_name: mod_name,
+        mod_license: mod_license,
+        mod_version: mod_version,
+        mod_authors: mod_authors,
+        mod_description: mod_description
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from 'src/main/templates'
+    into 'build/generated/sources/modMetadata'
+}
+
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 17
+}
+
+tasks.named('jar', Jar) {
+    manifest {
+        // NeoForge 1.20.1 still uses the Forge-era Mixin bootstrap. Later
+        // 1.20.x releases also tolerate this attribute alongside TOML metadata.
+        attributes['MixinConfigs'] = 'always-drop-loot.mixins.json'
+    }
+    from('LICENSE') {
+        rename { "${it}_always-drop-loot" }
+    }
+}
