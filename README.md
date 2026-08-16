@@ -83,7 +83,7 @@ Open the directory for the desired loader and series, then run:
 .\gradlew.bat build
 ```
 
-The distributable file is generated in `build/libs`. Use the JAR without the `-sources` suffix. Forge and NeoForge artifacts follow `ADL-<mod version>-<loader>-<Minecraft series>.jar`; Fabric keeps its already-published artifact names.
+The distributable file is generated in `build/libs`. Use the JAR without the `-sources` suffix. Artifacts for every loader follow `ADL-<mod version>-<loader>-<Minecraft series>.jar`.
 
 ## Credits and license
 
