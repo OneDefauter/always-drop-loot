@@ -4,6 +4,7 @@
 
 ### Changes
 
+- Changed generated artifact names to the `ADL-<version>-Fabric-<Minecraft series>.jar` pattern
 - Added normal equipment drop rolls for non-player kills according to `loot_drop_mode`
 - Added Brazilian Portuguese gamerule translations
 - Added the namespaced snake-case gamerule translation keys used by the gamerule screen
