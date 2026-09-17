@@ -8,11 +8,11 @@ In vanilla Minecraft, mobs killed by falls, lava, suffocation, campfires, drowni
 
 This repository is organized by loader and Minecraft series. Use the branch matching the platform and version you want:
 
-| Loader | Minecraft 1.20 | Minecraft 1.21 | Minecraft 26.1 | Minecraft 26.2 |
-| --- | --- | --- | --- | --- |
-| Fabric | [Fabric-1.20](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-1.20) | [Fabric-1.21](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-1.21) | [Fabric-26.1](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-26.1) | [Fabric-26.2](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-26.2) |
-| Forge | [Forge-1.20](https://github.com/OneDefauter/always-drop-loot/tree/Forge-1.20) | [Forge-1.21](https://github.com/OneDefauter/always-drop-loot/tree/Forge-1.21) | [Forge-26.1](https://github.com/OneDefauter/always-drop-loot/tree/Forge-26.1) | [Forge-26.2](https://github.com/OneDefauter/always-drop-loot/tree/Forge-26.2) |
-| NeoForge | [NeoForge-1.20](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-1.20) | [NeoForge-1.21](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-1.21) | [NeoForge-26.1](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-26.1) | [NeoForge-26.2](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-26.2) |
+| Loader | Minecraft 1.20 | Minecraft 1.21 | Minecraft 26.1 | Minecraft 26.2 | Minecraft 26.3 |
+| --- | --- | --- | --- | --- | --- |
+| Fabric | [Fabric-1.20](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-1.20) | [Fabric-1.21](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-1.21) | [Fabric-26.1](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-26.1) | [Fabric-26.2](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-26.2) | [Fabric-26.3](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-26.3) |
+| Forge | [Forge-1.20](https://github.com/OneDefauter/always-drop-loot/tree/Forge-1.20) | [Forge-1.21](https://github.com/OneDefauter/always-drop-loot/tree/Forge-1.21) | [Forge-26.1](https://github.com/OneDefauter/always-drop-loot/tree/Forge-26.1) | [Forge-26.2](https://github.com/OneDefauter/always-drop-loot/tree/Forge-26.2) | Not available |
+| NeoForge | [NeoForge-1.20](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-1.20) | [NeoForge-1.21](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-1.21) | [NeoForge-26.1](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-26.1) | [NeoForge-26.2](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-26.2) | [NeoForge-26.3](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-26.3) |
 
 Each branch contains one self-contained Gradle project and its release workflow.
 
@@ -32,6 +32,7 @@ Each supported loader/series combination is distributed as **one runtime JAR**. 
 | 1.21.x | `1.21`–`1.21.11` | `1.21`–`1.21.11` | `1.21`–`1.21.11` |
 | 26.1.x | `>=26.1 <26.2` | `>=26.1 <26.2` | `>=26.1 <26.2` |
 | 26.2.x | `>=26.2 <26.3` | `>=26.2 <26.3` | `>=26.2 <26.3` |
+| 26.3.x | `>=26.3 <26.4` | Not available | `>=26.3 <26.4` |
 
 `Not available` means that this repository does not provide a mod build for that series. NeoForge support in the 1.20 line starts at 1.20.1.
 
@@ -45,6 +46,7 @@ The ranges above are the compatibility ranges declared by each artifact. Each pr
 | Fabric | 1.21 | 1.21 | Loader 0.15.11 / API 0.100.4 | 21 / 21 |
 | Fabric | 26.1 | 26.1 | Loader 0.18.4 / API 0.144.0 | 22 / 25 |
 | Fabric | 26.2 | 26.2 | Loader 0.19.3 / API 0.154.2 | 25 / 25 |
+| Fabric | 26.3 | 26.3 | Loader 0.19.5 / API 0.160.6 | 25 / 25 |
 | Forge | 1.20 | 1.20.6 | Forge 50.2.10 | 17 / version-dependent |
 | Forge | 1.21 | 1.21 | Forge 51.0.33 | 21 |
 | Forge | 26.1 | 26.1 | Forge 62.0.2 | 25 |
@@ -53,6 +55,9 @@ The ranges above are the compatibility ranges declared by each artifact. Each pr
 | NeoForge | 1.21 | 1.21 | NeoForge 21.0.167 | 21 |
 | NeoForge | 26.1 | 26.1.2 | NeoForge 26.1.2.95 | 25 |
 | NeoForge | 26.2 | 26.2 | NeoForge 26.2.0.59 | 25 |
+| NeoForge | 26.3 | 26.3 | NeoForge 26.3.0.3-beta | 25 |
+
+Minecraft 26.3 currently has Fabric and NeoForge projects only. NeoForge 26.3.0.3-beta is a beta loader. Both builds passed dedicated development server checks for passive XP, loot modes, equipment drops and gamerule persistence. Client and modpack compatibility have not been tested.
 
 Source projects are under [`Fabric`](Fabric), [`Forge`](Forge), and [`NeoForge`](NeoForge). The current mod version is `5.6.0`.
 
