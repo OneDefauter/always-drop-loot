@@ -1,71 +1,100 @@
 # Always Drop Loot
 
-Unofficial continuation of **Always Drop Loot** for Fabric, Forge, and NeoForge.
+An unofficial Fabric update of **Always Drop Loot** for Minecraft `26.3`.
 
-In vanilla Minecraft, mobs killed by falls, lava, suffocation, campfires, drowning, entity cramming, and other non-player causes may lose experience or loot that depends on a player kill. This mod makes that behavior configurable so passive farms and automated systems can receive the expected drops.
+In vanilla Minecraft, many mobs only drop experience and some loot-table results when they are considered to have been killed by a player. That means falls, lava, suffocation, campfires, drowning, entity cramming, and other environmental deaths often reduce or remove rewards.
 
-## Branches
+This mod changes that behavior so passive farms and automation setups can still receive the drops you would normally expect from a player kill.
 
-This repository is organized by loader and Minecraft series. Use the branch matching the platform and version you want:
+## What the mod does
 
-| Loader | Minecraft 1.20 | Minecraft 1.21 | Minecraft 26.1 | Minecraft 26.2 |
-| --- | --- | --- | --- | --- |
-| Fabric | [Fabric-1.20](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-1.20) | [Fabric-1.21](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-1.21) | [Fabric-26.1](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-26.1) | [Fabric-26.2](https://github.com/OneDefauter/always-drop-loot/tree/Fabric-26.2) |
-| Forge | [Forge-1.20](https://github.com/OneDefauter/always-drop-loot/tree/Forge-1.20) | [Forge-1.21](https://github.com/OneDefauter/always-drop-loot/tree/Forge-1.21) | [Forge-26.1](https://github.com/OneDefauter/always-drop-loot/tree/Forge-26.1) | [Forge-26.2](https://github.com/OneDefauter/always-drop-loot/tree/Forge-26.2) |
-| NeoForge | [NeoForge-1.20](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-1.20) | [NeoForge-1.21](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-1.21) | [NeoForge-26.1](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-26.1) | [NeoForge-26.2](https://github.com/OneDefauter/always-drop-loot/tree/NeoForge-26.2) |
+- Makes mobs able to drop XP even when they die without a direct player kill.
+- Lets you control how much XP non-player kills should give.
+- Lets you control how the `killed_by_player` loot condition behaves.
+- Lets naturally equipped armor and weapons roll their normal drop chance on non-player kills.
+- Works in singleplayer and on Fabric servers.
+- Stores configuration per world through gamerules instead of a config screen.
 
-Each branch contains one self-contained Gradle project and its release workflow.
+In practice, this means farms based on fall damage, lava blades, environmental traps, or other automatic kill methods can still drop XP and loot depending on the rules you choose.
 
-The Fabric, Forge, and NeoForge branches for the same Minecraft series publish to one shared GitHub release. The release uses the tag `v<mod version>-mc<Minecraft series>`, and its Assets section contains one runtime JAR for each available loader.
+## Requirements
 
-## Version compatibility
-
-Each supported loader/series combination is distributed as **one runtime JAR**. For example, the Forge 1.21 JAR declares compatibility with the whole `1.21.x` series; a separate JAR is not required for every patch release.
-
-| Minecraft series | Fabric | Forge | NeoForge |
-| --- | --- | --- | --- |
-| 1.16.x | Not available | Not available | Not available |
-| 1.17.x | Not available | Not available | Not available |
-| 1.18.x | Not available | Not available | Not available |
-| 1.19.x | Not available | Not available | Not available |
-| 1.20.x | `1.20`–`1.20.6` | `1.20`–`1.20.6` | `1.20.1`–`1.20.6` |
-| 1.21.x | `1.21`–`1.21.11` | `1.21`–`1.21.11` | `1.21`–`1.21.11` |
-| 26.1.x | `>=26.1 <26.2` | `>=26.1 <26.2` | `>=26.1 <26.2` |
-| 26.2.x | `>=26.2 <26.3` | `>=26.2 <26.3` | `>=26.2 <26.3` |
-
-`Not available` means that this repository does not provide a mod build for that series. NeoForge support in the 1.20 line starts at 1.20.1.
-
-The ranges above are the compatibility ranges declared by each artifact. Each project uses one representative Minecraft version per series, listed below.
-
-## Project matrix
-
-| Loader | Series | Build target | Loader/API target | Java bytecode / target runtime |
-| --- | --- | --- | --- | --- |
-| Fabric | 1.20 | 1.20.6 | Loader 0.16.10 / API 0.100.8 | 17 / version-dependent |
-| Fabric | 1.21 | 1.21 | Loader 0.15.11 / API 0.100.4 | 21 / 21 |
-| Fabric | 26.1 | 26.1 | Loader 0.18.4 / API 0.144.0 | 22 / 25 |
-| Fabric | 26.2 | 26.2 | Loader 0.19.3 / API 0.154.2 | 25 / 25 |
-| Forge | 1.20 | 1.20.6 | Forge 50.2.10 | 17 / version-dependent |
-| Forge | 1.21 | 1.21 | Forge 51.0.33 | 21 |
-| Forge | 26.1 | 26.1 | Forge 62.0.2 | 25 |
-| Forge | 26.2 | 26.2 | Forge 65.1.1 | 25 |
-| NeoForge | 1.20 | 1.20.6 | NeoForge 20.6.139 | 17 / version-dependent |
-| NeoForge | 1.21 | 1.21 | NeoForge 21.0.167 | 21 |
-| NeoForge | 26.1 | 26.1.2 | NeoForge 26.1.2.95 | 25 |
-| NeoForge | 26.2 | 26.2 | NeoForge 26.2.0.59 | 25 |
-
-Source projects are under [`Fabric`](Fabric), [`Forge`](Forge), and [`NeoForge`](NeoForge). The current mod version is `5.6.0`.
+- Minecraft Java Edition `26.3`
+- Fabric Loader
+- Fabric API
+- Java 25
 
 ## Installation
 
-1. Install the loader matching the Minecraft version.
-2. For Fabric, also install Fabric API. Forge and NeoForge builds have no additional mod dependency.
-3. Copy the single non-`sources` JAR for the desired series to the `mods` directory.
-4. Start the game or dedicated server.
+1. Install Fabric Loader for your Minecraft version.
+2. Install Fabric API for the same version.
+3. Put the mod jar in your `mods` folder.
+4. Start the game or server.
+
+This mod is server-side in practice, so it is useful both in singleplayer and on dedicated servers.
 
 ## Configuration
 
-Configuration is stored per world through gamerules:
+The mod is configured with gamerules. Because they are world-specific, each save or server can have different behavior.
+
+If cheats are disabled in a singleplayer world, you can temporarily enable access to gamerules by opening the world to LAN with cheats enabled.
+
+### `always-drop-loot:always_drop_xp`
+
+Controls whether mobs may drop XP when they die without being killed by a player.
+
+Default:
+
+```mcfunction
+/gamerule always-drop-loot:always_drop_xp true
+```
+
+Behavior:
+
+- `true`: mobs can still drop XP when death happens by environment or automation.
+- `false`: vanilla-style XP behavior.
+
+### `always-drop-loot:passive_xp_modifier`
+
+Controls the XP multiplier for mobs that die **without** a player kill.
+
+Default:
+
+```mcfunction
+/gamerule always-drop-loot:passive_xp_modifier 1.0
+```
+
+Behavior:
+
+- `1.0`: non-player kills drop the mob's normal XP amount.
+- `0.5`: non-player kills drop half XP.
+- `0.0`: non-player kills drop no XP.
+- `2.0`: non-player kills drop double XP.
+
+This value only affects deaths that were not credited to a player. It does not change normal player-kill XP.
+
+### `always-drop-loot:loot_drop_mode`
+
+Controls how loot tables and equipped-item drops interpret whether the mob was killed by a player.
+
+Default:
+
+```mcfunction
+/gamerule always-drop-loot:loot_drop_mode ALWAYS_AS_PLAYER
+```
+
+Available values:
+
+- `ALWAYS_AS_PLAYER`: always treat the mob as if a player killed it.
+- `NEVER_AS_PLAYER`: never treat the mob as a player kill.
+- `VANILLA`: use normal vanilla behavior.
+- `VANILLA_INVERSE`: invert vanilla behavior.
+
+This rule affects loot-table drops that depend on `killed_by_player` and the vanilla drop chance for armor and weapons equipped by mobs.
+
+## Example setups
+
+Always drop normal XP and loot from automated farms:
 
 ```mcfunction
 /gamerule always-drop-loot:always_drop_xp true
@@ -73,18 +102,44 @@ Configuration is stored per world through gamerules:
 /gamerule always-drop-loot:loot_drop_mode ALWAYS_AS_PLAYER
 ```
 
-`always_drop_xp` enables experience from non-player kills. `passive_xp_modifier` controls its multiplier. `loot_drop_mode` accepts `ALWAYS_AS_PLAYER`, `NEVER_AS_PLAYER`, `VANILLA`, or `VANILLA_INVERSE`.
+Allow loot from farms, but reduce XP from automated kills:
 
-## Building
-
-Open the directory for the desired loader and series, then run:
-
-```powershell
-.\gradlew.bat build
+```mcfunction
+/gamerule always-drop-loot:always_drop_xp true
+/gamerule always-drop-loot:passive_xp_modifier 0.5
+/gamerule always-drop-loot:loot_drop_mode ALWAYS_AS_PLAYER
 ```
 
-The distributable file is generated in `build/libs`. Use the JAR without the `-sources` suffix. Artifacts for every loader follow `ADL-<mod version>-<loader>-<Minecraft series>.jar`.
+Keep vanilla loot logic, but still allow some XP from passive farms:
 
-## Credits and license
+```mcfunction
+/gamerule always-drop-loot:always_drop_xp true
+/gamerule always-drop-loot:passive_xp_modifier 0.5
+/gamerule always-drop-loot:loot_drop_mode VANILLA
+```
 
-Full credit for the original concept and implementation goes to [sargunv](https://modrinth.com/user/sargunv), author of the [original mod](https://modrinth.com/mod/always-drop-loot). This continuation remains licensed under Apache-2.0.
+## Compatibility
+
+This fork was updated specifically for Minecraft `26.3`.
+
+This port includes the required `26.3` build migration:
+
+- unobfuscated Fabric Loom (`net.fabricmc.fabric-loom`),
+- Java 25,
+- Fabric Loader `0.19.5`,
+- Fabric API `0.160.6+26.3`,
+- Loom `1.17.11`,
+- and Gradle `9.5.1`.
+
+## Credits
+
+Full credit for the original mod concept, implementation, and open-source release goes to **sargunv**.
+
+- Original author profile: <https://modrinth.com/user/sargunv>
+- Original mod page: <https://modrinth.com/mod/always-drop-loot>
+
+This updated fork exists to keep the mod usable on newer Fabric `26.3` versions while preserving the original idea and behavior as closely as possible.
+
+## License
+
+This fork continues to respect the original project's `Apache-2.0` license.
